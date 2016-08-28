@@ -5,14 +5,14 @@ package com.aquariusmaster;
  * POJO class. Represent record entry from xml
  */
 
-public class Record {
+public class BitcoinRecord {
 
     private long id;
     private String bitcoin;
 
-    public Record(){}
+    public BitcoinRecord(){}
 
-    public Record(long id, String bitcoin) {
+    public BitcoinRecord(long id, String bitcoin) {
         this.id = id;
         this.bitcoin = bitcoin;
     }
@@ -38,7 +38,7 @@ public class Record {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Record record = (Record) o;
+        BitcoinRecord record = (BitcoinRecord) o;
 
         if (id != record.id) return false;
         return bitcoin != null ? bitcoin.equals(record.bitcoin) : record.bitcoin == null;
@@ -54,7 +54,7 @@ public class Record {
 
     @Override
     public String toString() {
-        return "Record{" +
+        return "BitcoinRecord{" +
                 "id=" + id +
                 ", bitcoin='" + bitcoin + '\'' +
                 '}';

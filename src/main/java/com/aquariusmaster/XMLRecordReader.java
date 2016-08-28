@@ -19,19 +19,17 @@ import java.util.List;
 public class XMLRecordReader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLRecordReader.class);
-    private static int counter;
 
-    public static List<Record> readRecordFromXML(int count, String path){
 
-        LOGGER.info("Read record from xml file: " + path);
-        LOGGER.info("Counter =  " + counter + ", count of records for filling = " + count);
+    public static List<BitcoinRecord> readRecordFromXML(String path, int limit, int skip){
 
-        int skip = counter;
-        List<Record> records = null;
+        LOGGER.info("Read record from xml file: " + path + ". Skip: " + skip + ". Limit: " + limit + ".");
 
+        List<BitcoinRecord> records = null;
+        BitcoinRecord currentRecord = null;
+        String tagContent = "";
         try {
-            Record currentRecord = null;
-            String tagContent = null;
+
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader =
                     reader = factory.createXMLStreamReader(new FileInputStream(path));
@@ -39,8 +37,7 @@ public class XMLRecordReader {
             label:
             while(reader.hasNext()){
 
-                if (records != null && records.size() == count) {
-                    counter += count;
+                if (records != null && records.size() == limit) {
                     return records;
                 }
 
@@ -49,7 +46,7 @@ public class XMLRecordReader {
                 switch(event){
                     case XMLStreamConstants.START_ELEMENT:
                         if ("record".equals(reader.getLocalName())){
-                            currentRecord = new Record();
+                            currentRecord = new BitcoinRecord();
                         }
                         if("dataset".equals(reader.getLocalName())){
                             records = new ArrayList<>();
@@ -66,13 +63,19 @@ public class XMLRecordReader {
                                 if (skip-- > 0) {
                                     continue label;
                                 }
-                                records.add(currentRecord);
+                                if (records != null) {
+                                    records.add(currentRecord);
+                                }
                                 break;
                             case "id":
-                                currentRecord.setId(Long.parseLong(tagContent));
+                                if (currentRecord != null) {
+                                    currentRecord.setId(Long.parseLong(tagContent));
+                                }
                                 break;
                             case "bitcoin":
-                                currentRecord.setBitcoin(tagContent);
+                                if (currentRecord != null) {
+                                    currentRecord.setBitcoin(tagContent);
+                                }
                                 break;
                         }
                         break;
@@ -84,8 +87,6 @@ public class XMLRecordReader {
 
             }
 
-
-
         } catch (XMLStreamException e) {
             LOGGER.error("XML parsing error");
             e.printStackTrace();
@@ -93,9 +94,6 @@ public class XMLRecordReader {
             LOGGER.error("File not found");
             e.printStackTrace();
         }
-        counter += count;
-
-        LOGGER.info("Counter =  " + counter + ", count of records for filling = " + count);
         return records;
     }
 }
