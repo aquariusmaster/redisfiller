@@ -40,7 +40,7 @@ public class RedisfillerApplication {
 		ApplicationContext ctx = SpringApplication.run(RedisfillerApplication.class, args);
 
 	}
-	@Scheduled(fixedDelay = 2000)
+	@Scheduled(fixedDelay = 5000)
 	public void scheduler(){
 		LOGGER.info("Scheduler started");
 
