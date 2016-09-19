@@ -1,4 +1,4 @@
-package com.aquariusmaster;
+package com.aquariusmaster.redisfiller;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * Created by harkonnen on 13.07.16.
  */
-public class XMLRecordReaderTest {
+public class XMLBitcoinRecordReaderTest {
     @Test
     public void readRecordFromXML() throws Exception {
 //        XMLRecordReader.readRecordFromXML("redis-data.xml");

@@ -1,0 +1,58 @@
+group 'com.aquariusmaster.redisfiller'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+    }
+}
+
+apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.aquariusmaster.redisfiller.RedisfillerApplication'
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+dependencies {
+	
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '1.4.0.RELEASE'
+
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.4.0.RELEASE'
+
+	compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.0'
+
+	compile group: 'org.springframework.data', name: 'spring-data-redis', version: '1.7.2.RELEASE'
+
+	compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.4.2'
+
+	compile group: 'redis.clients', name: 'jedis', version: '2.8.2'
+
+	
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
+}

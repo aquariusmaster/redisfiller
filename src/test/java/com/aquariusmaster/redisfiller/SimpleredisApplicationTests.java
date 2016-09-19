@@ -1,4 +1,4 @@
-package com.aquariusmaster;
+package com.aquariusmaster.redisfiller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

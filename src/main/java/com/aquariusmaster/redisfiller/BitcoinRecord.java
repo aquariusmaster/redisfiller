@@ -1,4 +1,4 @@
-package com.aquariusmaster;
+package com.aquariusmaster.redisfiller;
 
 /**
  * Created by harkonnen on 18.06.16.
