@@ -24,10 +24,9 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public RedisTemplate<Long, String> redisTemplate() {
-        final RedisTemplate<Long, String> template = new RedisTemplate<Long, String>();
+    public RedisTemplate<String, String> redisTemplate() {
+        final RedisTemplate<String, String> template = new RedisTemplate<String, String>();
         template.setConnectionFactory(jedisConnectionFactory());
-//        template.setKeySerializer(LongSerializer.INSTANCE);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
         return template;
