@@ -2,7 +2,6 @@ package com.aquariusmaster.redisfiller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -49,7 +48,7 @@ public class XMLRecordReader {
                             currentRecord = new BitcoinRecord();
                         }
                         if("dataset".equals(reader.getLocalName())){
-                            records = new ArrayList<>();
+                            records = new ArrayList<BitcoinRecord>();
                         }
                         break;
 
@@ -81,7 +80,7 @@ public class XMLRecordReader {
                         break;
 
                     case XMLStreamConstants.START_DOCUMENT:
-                        records = new ArrayList<>();
+                        records = new ArrayList<BitcoinRecord>();
                         break;
                 }
 
@@ -92,6 +91,9 @@ public class XMLRecordReader {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             LOGGER.error("File not found");
+            e.printStackTrace();
+        } catch (Exception e){
+            LOGGER.error("Exception");
             e.printStackTrace();
         }
         return records;

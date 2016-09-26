@@ -50,7 +50,7 @@ public class RedisfillerApplication {
 
 		List<BitcoinRecord> records =
 				XMLRecordReader.readRecordFromXML(environment.getProperty("redis.data"), skip, counter);
-		counter+=skip;
+
 		LOGGER.info("Retrived records: " + records);
 		if (records != null && records.size() == 0){
 			LOGGER.info("Job done. Exiting ...");
@@ -59,6 +59,8 @@ public class RedisfillerApplication {
 		LOGGER.info("Scheduler: trying save in redis");
 		bitcoinRecordRepository.saveRecords(records);
 		LOGGER.info("Data saved!");
+
+		counter+=skip;
 
 	}
 
